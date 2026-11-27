@@ -1,0 +1,4 @@
+.gram
+.zig-cache
+zig-out
+test.output
