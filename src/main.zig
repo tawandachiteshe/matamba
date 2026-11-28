@@ -21,8 +21,8 @@ pub fn main(init: std.process.Init) !void {
     const cwd = Io.Dir.cwd();
     const config_bytes = cwd.readFileAlloc(init.io, config_path, arena, std.Io.Limit.limited(1024 * 1024)) catch |err| {
         switch (err) {
-            ReadFileAllocError.FileNotFound => std.log.err("config file not found: {s} \n", .{config_path}),
-            ReadFileAllocError.FileTooBig => std.log.err("config file too big \n", .{}),
+            ReadFileAllocError.FileNotFound => std.log.err("config file not found: {s}", .{config_path}),
+            ReadFileAllocError.FileTooBig => std.log.err("config file too big", .{}),
             else => std.debug.print("Unknown error: {s} \n", .{@errorName(err)}),
         }
         std.process.exit(1);
