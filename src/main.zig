@@ -23,7 +23,7 @@ pub fn main(init: std.process.Init) !void {
         switch (err) {
             ReadFileAllocError.FileNotFound => std.log.err("config file not found: {s}", .{config_path}),
             ReadFileAllocError.FileTooBig => std.log.err("config file too big", .{}),
-            else => std.debug.print("Unknown error: {s} \n", .{@errorName(err)}),
+            else => std.log.err("Unknown error: {s}", .{@errorName(err)}),
         }
         std.process.exit(1);
     };
