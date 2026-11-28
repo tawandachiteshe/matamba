@@ -7,6 +7,9 @@ const cfg = @import("config.zig");
 pub fn main(init: std.process.Init) !void {
     const arena = init.arena.allocator();
     const args: []const []const u8 = try init.minimal.args.toSlice(arena);
+    var std_out_buf: [256]u8 = undefined;
+    var stdout_writer = Io.File.stdout().writer(init.io, &std_out_buf);
+    const out = &stdout_writer.interface;
 
     if (args.len < 2) {
         std.log.err("usage: matamba <config.json>", .{});
@@ -35,7 +38,8 @@ pub fn main(init: std.process.Init) !void {
     defer parsed_cfg.deinit();
     const config: cfg.Config = parsed_cfg.value;
 
-    std.log.info("loaded {d} models, {d} aliases, {d} teams, {d} users", .{ config.models.len, config.aliases.len, config.teams.len, config.users.len });
+    try out.print("loaded {d} models, {d} aliases, {d} teams, {d} users", .{ config.models.len, config.aliases.len, config.teams.len, config.users.len });
+    try out.flush();
 }
 
 test {
