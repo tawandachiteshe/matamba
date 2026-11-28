@@ -9,7 +9,7 @@ pub fn main(init: std.process.Init) !void {
     const args: []const []const u8 = try init.minimal.args.toSlice(arena);
 
     if (args.len < 2) {
-        std.log.err("usage: matamba <config.json> \n", .{});
+        std.log.err("usage: matamba <config.json>", .{});
         std.process.exit(1);
     }
 
